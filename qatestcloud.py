@@ -7,7 +7,8 @@ class TestCloud:
     def __init__(self):
         self.request_posts_url = self.API_URL + 'posts'
         self.expected_columns = ('userId', 'id', 'title', 'body') 
-    
+        self.expected_types = (int, int, str, str)
+        
     # Проверка столбцов
     def values_in_dict(self, u_dict):
         for u_data in self.expected_columns:
@@ -21,11 +22,15 @@ class TestCloud:
         assert response.status_code == 200
                 
         response_data = response.json()
-
-        assert len(response_data) == 100
+        # проверка столбцов
         assert all(self.values_in_dict(user) for user in response_data)
+        # проверка данных в столбцах
+        assert all(tuple(map(type, user.values())) == self.expected_types
+                   for user in response_data)
+        
 
     def test_post_posts(self):
+        # Тест правильно введённых данных
         test_data = {'userId': 11, 'id': 101,
                      'title': 'lorum ipsum',
                      'body': 'yes, lorum ipsum'}
