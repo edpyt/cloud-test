@@ -12,4 +12,4 @@ RUN pip install -r requirements.txt
 
 COPY qatestcloud.py .
 
-RUN python qatestcloud.py
+RUN pytest qatestcloud.py

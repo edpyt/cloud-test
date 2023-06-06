@@ -19,7 +19,7 @@
 `pip install -r requirements.txt`
 
 - Для запуска прописать в терминале:
-`python qatestcloud.py`
+`pytest qatestcloud.py`
 
 ### С Докером
 - Прописать команду:
