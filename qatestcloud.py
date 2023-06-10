@@ -38,9 +38,17 @@ def test_get_post_from_posts():
 
 def test_get_post_from_posts_wrong():
     response = requests.get(REQUEST_POST_URL + '100')
+    response_data = response.json()
+    test_data = {'userId': 10, 'id': 100, 'title': 'at nam consequatur ea labore ea harum',
+                'body': 'cupiditate quo est a modi nesciunt soluta\nipsa voluptas error itaque dicta in\nautem qui minus magnam et distinctio eum\naccusamus ratione error aut'}
+
 
     assert response.status_code == 200
-    assert response.json()['id'] == 100
+    assert response_data == test_data
+    assert tuple(response_data.keys()) == EXPECTED_COLUMNS
+    assert tuple(map(type, response_data.values())) == EXPECTED_TYPES
+    
+
 
 
 def test_post_posts():
